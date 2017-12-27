@@ -1,0 +1,29 @@
+<configuration>
+
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>%date - %coloredLevel %logger{15} - %message%n%xException{5}</pattern> -->
+            <pattern>%date - %level - %logger{15} - %message%n%xException{5}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- LOTS OF
+     2017-10-31 08:14:08,936 - WARN - c.g.c.p.v.StreamingSubscriberConnection - Terminated streaming with exception
+        io.grpc.StatusRuntimeException: UNAVAILABLE: The service was unable to fulfill your request. Please try again. [code=8a75]
+	at io.grpc.Status.asRuntimeException(Status.java:526) ~[grpc-core-1.6.1.jar:1.6.1]
+	at io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:385) ~[grpc-stub-1.6.1.jar:1.6.1]
+	at io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:422) ~[grpc-core-1.6.1.jar:1.6.1]
+	at io.grpc.internal.ClientCallImpl.access$300(ClientCallImpl.java:61) ~[grpc-core-1.6.1.jar:1.6.1]
+
+     -->
+    <logger name="com.google.cloud.pubsub.v1.StreamingSubscriberConnection" level="ERROR" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="com.qordoba" level="INFO"/>
+
+</configuration>

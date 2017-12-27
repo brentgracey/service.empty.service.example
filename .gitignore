@@ -1,0 +1,34 @@
+*.class
+*.log
+
+conf/environment-specific.conf
+
+# sbt specific
+.cache/
+.history/
+.lib/
+.idea/*
+
+logs/*
+
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/target/*
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+.conf/environment-specific.conf
+
+conf/xxx.environment-specific.conf
+conf/auth-service-devel-environment-specific.conf
+
+.gitignore~
+
+
+conf/_not_used.jks
+#conf/idpmeta/*

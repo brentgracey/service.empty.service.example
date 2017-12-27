@@ -1,0 +1,4 @@
+
+GET /          @com.qordoba.Version.version()
+GET /version   @com.qordoba.Version.version()
+
