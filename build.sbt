@@ -22,6 +22,8 @@ libraryDependencies += "commons-codec" % "commons-codec" % "1.10"
 
 libraryDependencies += "com.google.cloud" % "google-cloud-pubsub" % "0.30.0-beta"
 
+libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.6"
+
 libraryDependencies += jdbc
 libraryDependencies += ws
 

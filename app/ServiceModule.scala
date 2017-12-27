@@ -1,11 +1,10 @@
 import java.util.logging.Logger
 import javax.inject.{Inject, Singleton}
 
-import com.google.cloud.pubsub.v1.{AckReplyConsumer, MessageReceiver, Subscriber}
 import com.google.inject.AbstractModule
-import com.google.pubsub.v1.{PubsubMessage, SubscriptionName}
 import com.qordoba.GetQConfig
 import play.api.Configuration
+import play.api.db.{Database, NamedDatabase}
 
 import scala.concurrent.ExecutionContext
 
@@ -25,6 +24,8 @@ trait OnStartUp
 @Singleton
 class PerformOnStartUp @Inject()(
                                   configuration: Configuration,
+                                  @NamedDatabase("reads") reads: Database,
+                                  @NamedDatabase("updateable") updateable: Database,
                                   qConfig: GetQConfig
                                 )(
                                   implicit executionContext: ExecutionContext
@@ -44,7 +45,9 @@ class StartUpConnection(
 
   val logger = Logger.getLogger(this.getClass.getName)
 
-  val sayHi = s"StartUpConnection ... being setup."
+  val sayHi = s"StartUpConnection ... being setup; currently does nothing."
+
+  /*
   // set subscriber id, eg. my-sub
   def subscriptionName: SubscriptionName = SubscriptionName.of(
     qReportingV2Config.config.googleProject,
@@ -70,7 +73,7 @@ class StartUpConnection(
 
   logger.info(s"${subscriber.toString}")
 
-  /*try {
+  try {
     lifecycle.addStopHook { () =>
       Future.successful {
         if (subscriber != null) subscriber.stopAsync

@@ -7,7 +7,6 @@ import javax.inject.{Inject, Singleton}
 import com.google.cloud.bigtable.hbase.BigtableConfiguration
 import org.apache.hadoop.hbase.client.Connection
 import play.api.Configuration
-import play.api.db.{Database, NamedDatabase}
 import play.api.libs.ws.WSClient
 
 import scala.concurrent.ExecutionContext
