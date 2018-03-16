@@ -9,7 +9,7 @@ import play.api.{Configuration, Logger}
 
 @Singleton
 class Version @Inject()(configuration: Configuration,
-                        qReportingV2Config: GetQConfig) extends Controller {
+                        qReportingV2Config: GetQConfig) extends InjectedController {
   def version() = Action { implicit request =>
 
     val nowIs = DateTime.now()
@@ -25,6 +25,8 @@ class Version @Inject()(configuration: Configuration,
         |  getMillis:   `${nowIs.getMillis}`
         |
         | `the start`
+        |
+        | ${qReportingV2Config.whoami} <- this must be the same for the lifecycle of a server (@Singleton)
         |
       """.stripMargin)
   }

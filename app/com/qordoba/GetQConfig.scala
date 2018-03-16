@@ -4,8 +4,6 @@ import java.util.UUID
 import java.util.logging.Logger
 import javax.inject.{Inject, Singleton}
 
-import com.google.cloud.bigtable.hbase.BigtableConfiguration
-import org.apache.hadoop.hbase.client.Connection
 import play.api.Configuration
 import play.api.libs.ws.WSClient
 
@@ -18,7 +16,6 @@ import scala.concurrent.ExecutionContext
 class QConfigSettings(
                                   val k8sName: String,
                                   val googleProject: String,
-                                  val bigTableConnection: Connection,
                                   val ws: WSClient,
                                   val defaultEc: ExecutionContext
                                 ) {
@@ -26,7 +23,6 @@ class QConfigSettings(
     s"""
        | QConfigSettings.k8sName:                 `${k8sName}`,
        | QConfigSettings.googleProject:           `${googleProject}`,
-       | QConfigSettings.bigTableConnection:      `${bigTableConnection}`,
        | QConfigSettings.ws:                      `${ws}`,
        | QConfigSettings.defaultEc:               `${defaultEc}`,""".stripMargin
 }
@@ -72,20 +68,12 @@ class GetQConfig @Inject()(ws: WSClient, configuration: Configuration) {
     LocalLaptop.development
   })
 
-
-  private val bigTableInstanceId: String = configuration.getString("bigTableInstanceId").getOrElse {
-    logger.info("No `bigTableInstanceId` (that's fine) - running off sane default of `history`.")
-
-    "qor-dw"
-  }
-
   //Maybe lazy is not needed here ... due to DI + its Singleton annotation
   lazy val config: QConfigSettings= {
 
     new QConfigSettings(
       k8sName = k8sName,
       googleProject = googleProject,
-      bigTableConnection = BigtableConfiguration.connect(googleProject, bigTableInstanceId),
       ws = ws,
       defaultEc = scala.concurrent.ExecutionContext.Implicits.global
     )
