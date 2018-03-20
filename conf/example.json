@@ -8,6 +8,6 @@
 
   "day_of_week_array" : [ {
       "Monday" : "Monday is the first day",
-      "Tuesday" : "the rest"
+      "Tuesday" : "fake it until you make"
   }  ]
 }
